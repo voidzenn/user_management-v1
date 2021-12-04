@@ -1,0 +1,245 @@
+<template>
+    <div>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">User Edit</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">User Management</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <!--                                    <h3 class="card-title">Bordered Table</h3>-->
+                                    <div class="col-md- float-right">
+                                        <router-link
+                                            :to="{ name:'UserManagement' }"
+                                            class="nav-link"
+                                        >
+                                            Go Back
+                                        </router-link>
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body m-5">
+                                    <div class="alert alert-success alert-dismissible" v-show="success">
+                                        User Successfully Update
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="" id="" method="POST" @submit.prevent="update">
+                                        <div class="form-group">
+                                            <label for="">Name</label>
+                                            <input type="text" class="form-control" v-model="fields.name">
+                                            <label for="" class="label text-danger" v-show="errors.name !== ''">
+                                                {{ errors.name }}
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Email</label>
+                                            <input type="text" class="form-control" v-model="fields.email">
+                                            <label for="" class="label text-danger" v-show="errors.email !== ''">
+                                                {{ errors.email }}
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Role</label>
+
+                                            <!--                                            <select name="" id=""-->
+                                            <!--                                                v-for="role in roles"-->
+                                            <!--                                               -->
+                                            <!--                                                :key="role.id"-->
+                                            <!--                                                class="form-control"-->
+                                            <!--                                            >-->
+                                            <!--                                                <option-->
+                                            <!--                                                    v-bind:value="role.id"-->
+                                            <!--                                                    selected-->
+                                            <!--                                                >{{ role.name }}</option>-->
+                                            <!--                                            </select>-->
+
+                                            <select name="" id="" class="form-control" v-model="fields.role_id">
+                                                <option
+                                                    v-for="role in roles"
+                                                    :value="role.id"
+                                                >{{ role.name }}</option>
+                                            </select>
+                                            <label for="" class="label text-danger" v-show="errors.role_id !== ''">
+                                                {{ errors.role_id }}
+                                            </label>
+                                        </div>
+
+                                        <div class="form-group float-right">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer clearfix">
+
+                                </div>
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="col-md- float-left">
+                                        <h1 class="card-title">Update Password</h1>
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body m-5">
+                                   <!-- <div class="alert alert-success alert-dismissible" v-show="success">
+                                        Password Successfully Updated
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div> -->
+                                    <form action="" id="" method="POST" @submit.prevent="updatePass">
+                                        <div class="form-group">
+                                            <label for="">Password</label>
+                                            <input type="text" class="form-control" v-model="fields.password">
+                                            <label for="" class="label text-danger" v-show="errors.password !== ''">
+                                                {{ errors.password }}
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Confirm Password</label>
+                                            <input type="text" class="form-control" v-model="fields.password_confirmation">
+                                            <label for="" class="label text-danger" v-show="errors.password_confirmation !== ''">
+                                                {{ errors.password_confirmation }}
+                                            </label>
+                                        </div>
+                                        <div class="form-group float-right">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer clearfix">
+
+                                </div>
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+</template>
+
+<script>
+
+export default {
+    data() {
+        return {
+            roles: [],
+            fields: {},
+            success: false,
+            errors: {
+                name: '',
+                email: '',
+                password: '',
+                password_confirmation: '',
+                role_id: ''
+            },
+        }
+    },
+    created() {
+        this.loadData();
+        this.loadRole();
+    },
+    methods: {
+
+        loadData() {
+            axios.get(`/api/users/${this.$route.params.id}`)
+                .then((response) => {
+                    this.fields.name = response.data.name;
+                    this.fields.email = response.data.email;
+                    this.fields.role_id = response.data.role_id;
+                    console.log(this.fields);
+                })
+                .catch(error => {
+                    console.log(error.data);
+                });
+        },
+
+        loadRole() {
+            axios.get('/api/roles')
+                .then(response => {
+                    this.roles = response.data;
+                    // console.log(response.data)
+                });
+        },
+
+        update()
+        {
+            axios.put(`/api/users/${this.$route.params.id}`, this.fields)
+                .then(response => {
+                    // this.fields = {};
+                    this.success = true;
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    if( error.response.status === 422 )
+                    {
+                        this.errors.name = error.response.data.errors.name[0];
+                        this.errors.email = error.response.data.errors.email[0];
+                        this.errors.role_id = error.response.data.errors.role_id[0];
+                    }
+                    console.log(error.response.data);
+                });
+        },
+
+        updatePass()
+        {
+            axios.post('/api/users/store', this.fields)
+                .then(response => {
+                    // this.fields = {};
+                    this.success = true;
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    if( error.response.status === 422 )
+                    {
+                        this.errors.name = error.response.data.errors.name[0];
+                        this.errors.email = error.response.data.errors.email[0];
+                        this.errors.password = error.response.data.errors.password[0];
+                        this.errors.password_confirmation = error.response.data.errors.password_confirmation[0];
+                        this.errors.role_id = error.response.data.errors.role_id[0];
+                    }
+                    console.log(error.response.data.errors);
+                });
+        }
+    }
+}
+</script>
