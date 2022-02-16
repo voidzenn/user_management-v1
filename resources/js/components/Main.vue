@@ -24,7 +24,7 @@ import Footer from "./layouts/Footer";
 import SideOverlay from "./layouts/SideOverlay";
 
 export default {
-  mounted() {
+	mounted() {
 		console.log("main vue mounted");
 	},
 
