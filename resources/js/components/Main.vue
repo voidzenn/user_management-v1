@@ -43,3 +43,4 @@ export default {
 	right: 1px;
 }
 </style>
+  
